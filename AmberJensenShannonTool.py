@@ -39,10 +39,10 @@ def calculate_angles(traj, residues=[], angles='phi psi'):
     return data
 
 
-def set_resrange(residues):
+def set_resrange(residues, traj):
     # use all residues in topology
     if not residues:
-        residues = [int(l[4:]) for l in list(pt.dssp(traj_2)[0])]
+        residues = [int(l[4:]) for l in list(pt.dssp(traj)[0])]
 
     # range of residues
     elif '-' in residues:
@@ -81,8 +81,8 @@ def main(args):
     traj_2 = load_trajectory(args.traj_2, args.top_2)
 
     # handle residue ranges
-    residues_1 = set_resrange(args.residues_1)
-    residues_2 = set_resrange(args.residues_2)
+    residues_1 = set_resrange(args.residues_1, traj_1)
+    residues_2 = set_resrange(args.residues_2, traj_2)
 
     # if residues differ in lenght only use common residues
     if len(args.residues_1) != len(list(set(residues_1) & set(residues_2))):
