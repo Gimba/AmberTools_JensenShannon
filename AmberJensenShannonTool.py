@@ -106,7 +106,6 @@ def main(args):
         js_distances.append(jensenshannon(hist_1, hist_2))
 
     # plot JS divergence
-    plt.clf()
     plt.scatter(residues_1, js_distances)
     plt.xticks(residues_1)
     plt.xlabel('Residues')
