@@ -16,11 +16,12 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import argparse
+import sys
+from os.path import basename, splitext
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pytraj as pt
-import sys
-from os.path import basename, splitext
 from scipy.spatial.distance import jensenshannon
 
 
@@ -51,7 +52,8 @@ def set_resrange(residues, traj):
 
     # list of residues
     else:
-        residues = args.residues_2.split(',')
+        residues = residues.split(',')
+    return residues
 
 
 def main(args):
