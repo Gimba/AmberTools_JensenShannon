@@ -86,11 +86,12 @@ def main(args):
     residues_1 = set_resrange(args.residues_1, traj_1)
     residues_2 = set_resrange(args.residues_2, traj_2)
 
-    # if residues differ in lenght only use common residues
+    # if residues differ in length only use common residues
     if len(args.residues_1) != len(list(set(residues_1) & set(residues_2))):
         residues = list(set(residues_1) & set(residues_2))
         residues_1 = residues
         residues_2 = residues
+        print("Length of given residues sets differ -> will continue only using common ones")
 
     residues_1.sort()
     residues_2.sort()
