@@ -116,8 +116,10 @@ def main(args):
 
 
     # if residues differ in length only use common residues
-    if len(args.residues_1) != len(list(set(residues_1) & set(residues_2))):
+    if len(residues_1) != len(residues_2):
         residues = list(set(residues_1) & set(residues_2))
+        print("length r1", len(residues_1))
+        print("length r2", len(residues_2))
         residues_1 = residues
         residues_2 = residues
         print("Length of given residues sets differ -> will continue only using common ones")
