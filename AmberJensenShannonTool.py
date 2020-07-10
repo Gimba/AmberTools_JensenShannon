@@ -29,7 +29,7 @@ from scipy.spatial.distance import jensenshannon
 
 
 def load_trajectory(traj, top, frames=""):
-    print(frames)
+    print("Number of frames:", len(frames))
     if frames:
         traj = pt.load(traj, top, frames)
     else:
@@ -48,7 +48,7 @@ def calculate_angles(traj, residues=[], angles='phi psi'):
 
 
 def set_resrange(residues, traj):
-    print(residues)
+    print("Selected residues:", residues)
     # use all residues in topology
     if not residues:
         residues = [int(l[4:]) for l in list(pt.dssp(traj)[0])]
