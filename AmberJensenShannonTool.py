@@ -61,6 +61,7 @@ def set_resrange(residues, traj):
     # list of residues
     else:
         residues = residues.split(',')
+        residues = [int(r) for r in residues]
     return residues
 
 
@@ -117,7 +118,6 @@ def main(args):
     residues_1 = set_resrange(args.residues_1, traj_1)
     residues_2 = set_resrange(args.residues_2, traj_2)
 
-
     # if residues differ in length only use common residues
     if len(residues_1) != len(residues_2):
         residues = list(set(residues_1) & set(residues_2))
@@ -167,6 +167,7 @@ def main(args):
 
     with open(top_1_name + "_js.pml", 'w') as o:
         o.write(out_pymol_file)
+
 
 if __name__ == '__main__':
     main(sys.argv)
