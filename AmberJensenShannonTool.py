@@ -25,8 +25,12 @@ import pytraj as pt
 from scipy.spatial.distance import jensenshannon
 
 
-def load_trajectory(traj, top):
-    traj = pt.load(traj, top)
+def load_trajectory(traj, top, frames=""):
+    print(frames)
+    if frames:
+        traj = pt.load(traj, top, frames)
+    else:
+        traj = pt.load(traj, top)
     return traj
 
 
@@ -41,6 +45,7 @@ def calculate_angles(traj, residues=[], angles='phi psi'):
 
 
 def set_resrange(residues, traj):
+    print(residues)
     # use all residues in topology
     if not residues:
         residues = [int(l[4:]) for l in list(pt.dssp(traj)[0])]
@@ -54,6 +59,18 @@ def set_resrange(residues, traj):
     else:
         residues = residues.split(',')
     return residues
+
+
+def set_framerange(frames):
+    if '-' in frames:
+        start, end = frames.split('-')
+        frames = list(np.arange(int(start), int(end)))
+
+    # list of frames
+    else:
+        frames = frames.split(',')
+    frames = [int(f) for f in frames]
+    return frames
 
 
 def main(args):
@@ -72,19 +89,31 @@ def main(args):
                              'example: 1-156 or 1,2,3,4,... (default: all residues)', default=[])
     parser.add_argument('-p', dest='pymol_script', help='Name of pymol script file (default: top_1 + _js.pml)')
     parser.add_argument('-s', dest='scatter', help='Name of scatter plot file (default: top_1 + .png)')
+    parser.add_argument('-f1', dest='frames_1', help='List of frames that are considered from trajectory 1.',
+                        default="")
+    parser.add_argument('-f2', dest='frames_2', help='List of frames that are considered from trajectory 2.',
+                        default="")
 
     args = parser.parse_args()
 
     # file name of first topology will be used for output file names
     top_1_name = splitext(basename(args.top_1))[0]
 
-    # read in data
-    traj_1 = load_trajectory(args.traj_1, args.top_1)
-    traj_2 = load_trajectory(args.traj_2, args.top_2)
+    if args.frames_1 and args.frames_2:
+        frames_1 = set_framerange(args.frames_1)
+        frames_2 = set_framerange(args.frames_2)
+        # read in data
+        traj_1 = load_trajectory(args.traj_1, args.top_1, frames_1)
+        traj_2 = load_trajectory(args.traj_2, args.top_2, frames_2)
+    else:
+        # read in data
+        traj_1 = load_trajectory(args.traj_1, args.top_1)
+        traj_2 = load_trajectory(args.traj_2, args.top_2)
 
     # handle residue ranges
     residues_1 = set_resrange(args.residues_1, traj_1)
     residues_2 = set_resrange(args.residues_2, traj_2)
+
 
     # if residues differ in length only use common residues
     if len(args.residues_1) != len(list(set(residues_1) & set(residues_2))):
@@ -133,7 +162,6 @@ def main(args):
 
     with open(top_1_name + "_js.pml", 'w') as o:
         o.write(out_pymol_file)
-
 
 if __name__ == '__main__':
     main(sys.argv)
