@@ -19,6 +19,9 @@ import argparse
 import sys
 from os.path import basename, splitext
 
+import matplotlib
+
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pytraj as pt
