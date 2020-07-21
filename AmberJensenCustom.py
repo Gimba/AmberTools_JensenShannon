@@ -57,7 +57,7 @@ def main(args):
         x_ticks.append(
             str(last_k // 1000) + "k -> " + str(k // 1000) + "k to " + str((k + 1) // 1000) + "k -> " + str((
                                                                                                              int(
-                                                                                                                 args.frames)) // 1000))
+                                                                                                                 args.frames)) // 1000) + "k")
         last_k = k + 1
 
     js_distances = []
