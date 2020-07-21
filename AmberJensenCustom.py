@@ -45,7 +45,7 @@ def main(args):
     # file name of first topology will be used for output file names
     top_1_name = splitext(basename(args.top))[0]
 
-    traj = pt.load(args.traj, args.top)
+    traj = pt.iterload(args.traj, args.top)
     last_k = 1
     histograms = []
     x_ticks = []
