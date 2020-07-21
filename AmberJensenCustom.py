@@ -65,7 +65,7 @@ def main(args):
         js_distances.append(jensenshannon(histograms[c], histograms[c + 1]))
 
     plt.scatter(x_ticks[:-1], js_distances)
-    plt.xticks(x_ticks[:-1], rotation=30)
+    plt.xticks(x_ticks[:-1], rotation=30, ha='right')
     plt.ylabel('Jensen Shannon Divergence')
     plt.xlabel('Compared frame windows')
     plt.tight_layout()
