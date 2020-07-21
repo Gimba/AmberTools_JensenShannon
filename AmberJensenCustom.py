@@ -64,6 +64,7 @@ def main(args):
     for c in range(len(histograms) - 1):
         js_distances.append(jensenshannon(histograms[c], histograms[c + 1]))
 
+    print(js_distances)
     plt.scatter(x_ticks[:-1], js_distances)
     plt.xticks(x_ticks[:-1], rotation=30, ha='right')
     plt.ylabel('Jensen Shannon Divergence')
