@@ -46,10 +46,10 @@ def main(args):
     top_1_name = splitext(basename(args.top))[0]
 
     traj = pt.iterload(args.traj, args.top)
-    last_k = 1
+    last_k = 0
     histograms = []
     x_ticks = []
-    for k in range(int(args.frames), int(traj.n_frames), int(args.frames)):
+    for k in range(int(args.frames) - 1, int(traj.n_frames), int(args.frames)):
         angles = pt.dihedral(traj, mask=args.dihedral_angle.replace(',', ' '), top=args.top, frame_indices=range(
             last_k, k + 1))
         hist = list(np.histogram(angles, bins=np.arange(-180, 181, 10))[0])
