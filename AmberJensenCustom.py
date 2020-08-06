@@ -55,8 +55,8 @@ def main(args):
         hist = list(np.histogram(angles, bins=np.arange(-180, 181, 10))[0])
         histograms.append(hist)
         x_ticks.append(
-            str(last_k // 10) + "k -> " + str(k // 10) + "k to " + str((k + 1) // 10) + "k -> " + str(k + int(
-                args.frames) // 10) + "k")
+            str(last_k // 1000) + "k -> " + str(k // 1000) + "k to " + str((k + 1) // 1000) + "k -> " + str((k + int(
+                args.frames)) // 1000) + "k")
         last_k = k + 1
 
     js_distances = []
@@ -64,7 +64,6 @@ def main(args):
         js_distances.append(jensenshannon(histograms[c], histograms[c + 1]))
 
     print(js_distances)
-        print(x_ticks)
     plt.scatter(x_ticks[:-1], js_distances)
     plt.xticks(x_ticks[:-1], rotation=30, ha='right')
     plt.ylabel('Jensen Shannon Divergence')
