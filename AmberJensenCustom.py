@@ -55,9 +55,9 @@ def main(args):
         hist = list(np.histogram(angles, bins=np.arange(-180, 181, 10))[0])
         histograms.append(hist)
         x_ticks.append(
-            str(last_k // 1000) + "k -> " + str(k // 1000) + "k to " + str((k + 1) // 1000) + "k -> " + str((
-                                                                                                             int(
-                                                                                                                 args.frames)) // 1000) + "k")
+            str(last_k // 1000) + "k -> " + str(k // 1000) + "k to " + str((k + 1) // 1000) + "k -> " + str((k + 2)
+                                                                                                            // 1000)
+            + "k")
         last_k = k + 1
 
     js_distances = []
